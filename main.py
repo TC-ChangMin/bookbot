@@ -2,22 +2,27 @@
 def main():
     book_path = 'books/frankenstein.txt'
     text = get_book_text(book_path)
-    print(text)
+    num_words = get_words_in_book(text)
+    histogram = letters_histogram(text)
+    print(num_words)
+    print(histogram)
 
 # gets book text
 def get_book_text(path):
     with open(path) as f:
         return f.read()
 
-# gets word count
-def count_words_in_book(file_path):
-    text = get_book_text(file_path)
-    words = text.split()
-    count = 0
-    for word in words:
-        count += 1
-    return count
+# makes a histogram of each letter
+def letters_histogram(text):
+    letter_counts = {}
+    for letter in text.lower():
+        if letter.isalpha():
+            letter_counts[letter] = letter_counts.get(letter, 0) + 1
+    return letter_counts
 
-file_path = 'books/frankenstein.txt'
-word_count = count_words_in_book(file_path)
-print(word_count)
+# gets word count
+def get_words_in_book(text):
+    words = text.split()
+    return len(words)
+
+main()
